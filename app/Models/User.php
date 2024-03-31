@@ -26,9 +26,11 @@ class User extends Authenticatable
         'neighborhood',
         'street',
         'phone_number',
+        'photo',
         'email',
         'password',
         'role',
+        'status',
     ];
 
     /**
@@ -49,4 +51,7 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    protected $keyType = 'string';
+    public $incrementing = false;
 }

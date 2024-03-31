@@ -12,11 +12,24 @@ class Student extends Model
     use HasFactory, Notifiable;
 
     protected $fillable = [
-        'name', 'first_surname', 'second_surname', 'date_of_birth', 'gender', 'curp', 'blood_type', 'photo', 'birth_certificate', 'user_id',
+        'name', 
+        'first_surname', 
+        'second_surname', 
+        'date_of_birth', 
+        'gender', 
+        'curp', 
+        'blood_type', 
+        'photo', 
+        'birth_certificate', 
+        'user_id', 
+        'status',
     ];
 
     public function user()
     {
         return $this->belongsTo(User::class);
     }
+
+    protected $keyType = 'string';
+    public $incrementing = false;
 }

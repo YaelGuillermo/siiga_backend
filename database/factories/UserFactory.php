@@ -23,17 +23,21 @@ class UserFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->name,
+            'id' => Str::uuid(),
+            'name' => $this->faker->firstName,
             'first_surname' => $this->faker->lastName,
             'second_surname' => $this->faker->lastName,
-            'date_of_birth' => $this->faker->date,
-            'gender' => $this->faker->randomElement(['male', 'female']),
+            'date_of_birth' => $this->faker->date('Y-m-d', '2006-01-01'),
+            'gender' => $this->faker->randomElement(['Male', 'Female']),
             'neighborhood' => $this->faker->streetName,
             'street' => $this->faker->streetAddress,
-            'phone_number' => $this->faker->phoneNumber,
+            'phone_number' => '664' . $this->faker->numerify('#######'),
+            'photo' => null,
             'email' => $this->faker->unique()->safeEmail,
-            'password' => bcrypt('password'), // You can adjust this as needed
+            'password' => bcrypt('password'),
+            'email_verified_at' => null,
             'role' => $this->faker->randomElement(['Parent', 'Administrator']),
+            'status' => true,
         ];
     }
 

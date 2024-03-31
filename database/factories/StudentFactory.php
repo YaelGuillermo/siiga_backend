@@ -23,18 +23,20 @@ class StudentFactory extends Factory
     public function definition(): array
     {
         return [
+            'id' => Str::uuid(),
             'name' => $this->faker->firstName,
             'first_surname' => $this->faker->lastName,
             'second_surname' => $this->faker->lastName,
-            'date_of_birth' => $this->faker->date(),
-            'gender' => $this->faker->randomElement(['male', 'female']),
-            'curp' => $this->faker->regexify('[A-Z]{4}\d{6}[A-Z]{6}\d{2}'),
+            'date_of_birth' => $this->faker->date('Y-m-d', '2020-01-01'),
+            'gender' => $this->faker->randomElement(['Male', 'Female']),
+            'curp' => $this->faker->regexify('[A-Z]{4}\d{6}[HM][A-Z]{5}[A-Z\d][\dA]'),
             'blood_type' => $this->faker->randomElement(['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-']), 
             'photo' => null,
             'birth_certificate' => null,
             'user_id' => function () {
                 return \App\Models\User::factory()->create()->id;
             },
+            'status' => true,
         ];
     }
 }

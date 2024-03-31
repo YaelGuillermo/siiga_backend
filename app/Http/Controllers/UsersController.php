@@ -8,9 +8,60 @@ use Illuminate\Support\Facades\Validator;
 
 class UsersController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    protected $rules;
+    protected $errorMessages;
+
+    public function __construct()
+    {
+        $this->rules = [
+            'name' => 'required|string|regex:/^((?!\s{5}).)*$/',
+            'first_surname' => 'required|string|regex:/^((?!\s{3}).)*$/',
+            'second_surname' => 'required|string|regex:/^((?!\s{3}).)*$/',
+            'date_of_birth' => 'required|date|after_or_equal:2006-01-01',
+            'gender' => 'required|in:Male,Female',
+            'neighborhood' => 'required|string',
+            'street' => 'required|string',
+            'phone_number' => 'required|string|regex:/^[0-9 -]{10,13}$/',
+            'photo' => 'nullable|string',
+            'email' => 'required|string|email|unique:users,email',
+            'password' => 'required|string',
+            'email_verified_at' => 'nullable|date',
+            'role' => 'required|in:Parent,Administrator',
+            'status' => 'required|boolean',
+        ];
+
+        $this->errorMessages = [
+            'name.required' => 'The name field is required.',
+            'name.string' => 'The name must be a string.',
+            'first_surname.required' => 'The first surname field is required.',
+            'first_surname.string' => 'The first surname must be a string.',
+            'second_surname.required' => 'The second surname field is required.',
+            'second_surname.string' => 'The second surname must be a string.',
+            'date_of_birth.required' => 'The date of birth field is required.',
+            'date_of_birth.date' => 'The date of birth must be a valid date.',
+            'gender.required' => 'The gender field is required.',
+            'gender.in' => 'The gender must be Male or Female.',
+            'neighborhood.required' => 'The neighborhood field is required.',
+            'neighborhood.string' => 'The neighborhood must be a string.',
+            'street.required' => 'The street field is required.',
+            'street.string' => 'The street must be a string.',
+            'phone_number.required' => 'The phone number field is required.',
+            'phone_number.string' => 'The phone number must be a string.',
+            'photo.string' => 'The photo must be a string.',
+            'email.required' => 'The email field is required.',
+            'email.string' => 'The email must be a string.',
+            'email.email' => 'The email must be a valid email address.',
+            'email.unique' => 'The email has already been taken.',
+            'password.required' => 'The password field is required.',
+            'password.string' => 'The password must be a string.',
+            'email_verified_at.date' => 'The email verified at must be a valid date.',
+            'role.required' => 'The role field is required.',
+            'role.in' => 'The role must be Parent or Administrator.',
+            'active.required' => 'The active field is required.',
+            'active.boolean' => 'The active must be true or false.',
+        ];
+    }
+
     public function index()
     {
         // Obtener todos los usuarios
@@ -26,19 +77,7 @@ class UsersController extends Controller
     public function store(Request $request)
     {
         // Validar los datos de entrada
-        $validator = Validator::make($request->all(), [
-            'name' => 'required|string',
-            'first_surname' => 'required|string',
-            'second_surname' => 'required|string',
-            'date_of_birth' => 'required|date',
-            'gender' => 'required|in:male,female,other',
-            'neighborhood' => 'nullable|string',
-            'street' => 'nullable|string',
-            'phone_number' => 'nullable|string',
-            'email' => 'required|string|email|unique:users,email',
-            'password' => 'required|string',
-            'role' => 'required|string|in:admin,user',
-        ]);
+        $validator = Validator::make($request->all(), $this->rules, $errorMessages);
 
         // Si la validación falla, devolver un error
         if ($validator->fails()) {
@@ -73,19 +112,7 @@ class UsersController extends Controller
         $user = User::findOrFail($id);
         
         // Validar los datos de entrada
-        $validator = Validator::make($request->all(), [
-            'name' => 'string',
-            'first_surname' => 'string',
-            'second_surname' => 'string',
-            'date_of_birth' => 'date',
-            'gender' => 'in:male,female,other',
-            'neighborhood' => 'nullable|string',
-            'street' => 'nullable|string',
-            'phone_number' => 'nullable|string',
-            'email' => 'string|email|unique:users,email,' . $user->id,
-            'password' => 'string',
-            'role' => 'string|in:admin,user',
-        ]);
+        $validator = Validator::make($request->all(), $this->rules, $errorMessages);
 
         // Si la validación falla, devolver un error
         if ($validator->fails()) {
