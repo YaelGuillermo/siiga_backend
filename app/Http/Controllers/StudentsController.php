@@ -27,7 +27,7 @@ class StudentsController extends Controller
             'status' => 'required|boolean',
         ];
 
-        $this->$errorMessages = [
+        $this->errorMessages = [
             'name.required' => 'The name field is required.',
             'name.string' => 'The name must be a string.',
             'name.regex' => 'The name format is invalid.',
