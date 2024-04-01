@@ -14,10 +14,10 @@ class StudentsController extends Controller
     public function __construct()
     {
         $this->rules = [
-            'name' => 'required|string|regex:/^((?!\s{5}).)*$/',
-            'first_surname' => 'required|string|regex:/^((?!\s{3}).)*$/',
-            'second_surname' => 'required|string|regex:/^((?!\s{3}).)*$/',
-            'date_of_birth' => 'required|date|after_or_equal:2020-01-01',
+            'name' => 'required|string|regex:/^[a-zA-Z]{3,}(?: [a-zA-Z]+){0,2}$/',
+            'first_surname' => 'required|string|regex:/^[a-zA-Z]{3,}(?: [a-zA-Z]+){0,2}$/',
+            'second_surname' => 'required|string|regex:/^[a-zA-Z]{3,}(?: [a-zA-Z]+){0,2}$/',
+            'date_of_birth' => 'required|date|before_or_equal:2020-01-01',
             'gender' => 'required|in:Male,Female',
             'curp' => 'required|string|max:18|regex:/^[A-Z]{4}\d{6}[HM][A-Z]{5}[A-Z\d][\dA]$/',
             'blood_type' => 'required|string|in:A+,A-,B+,B-,AB+,AB-,O+,O-',
@@ -33,13 +33,13 @@ class StudentsController extends Controller
         $this->errorMessages = [
             'name.required' => 'The name field is required.',
             'name.string' => 'The name must be a string.',
-            'name.regex' => 'The name format is invalid.',
+            'name.regex' => 'The name format is invalid. It must contain between 3 and 15 characters, consisting of letters only, and up to 2 spaces.',
             'first_surname.required' => 'The first surname field is required.',
             'first_surname.string' => 'The first surname must be a string.',
-            'first_surname.regex' => 'The first surname format is invalid.',
+            'first_surname.regex' => 'The first surname format is invalid. It must contain between 3 and 15 characters, consisting of letters only, and up to 2 spaces.',
             'second_surname.required' => 'The second surname field is required.',
             'second_surname.string' => 'The second surname must be a string.',
-            'second_surname.regex' => 'The second surname format is invalid.',
+            'second_surname.regex' => 'The second surname format is invalid. It must contain between 3 and 15 characters, consisting of letters only, and up to 2 spaces.',
             'date_of_birth.required' => 'The date of birth field is required.',
             'date_of_birth.date' => 'The date of birth must be a valid date.',
             'date_of_birth.after_or_equal' => 'The date of birth must be after or equal to January 1, 2020.',
@@ -81,11 +81,11 @@ class StudentsController extends Controller
 
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), $this->rules, $errorMessages);   
+        $validator = Validator::make($request->all(), $this->rules, $this->errorMessages);   
 
         // Si la validación falla, devolver un error
         if ($validator->fails()) {
-            return response()->json(['error' => $validator->errors()->first()], 400);
+            return response()->json(['errors' => $validator->errors()], 400);
         }
 
         // Crear un nuevo estudiante con los datos proporcionados
@@ -101,12 +101,12 @@ class StudentsController extends Controller
         $student = Student::findOrFail($id);
         
         // Validar los datos de entrada
-        $validator = Validator::make($request->all(), $this->rules, $errorMessages);
+        $validator = Validator::make($request->all(), $this->rules, $this->errorMessages);
 
 
         // Si la validación falla, devolver un error
         if ($validator->fails()) {
-            return response()->json(['error' => $validator->errors()->first()], 400);
+            return response()->json(['errors' => $validator->errors()], 400);
         }
 
         // Actualizar los datos del estudiante
