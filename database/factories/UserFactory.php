@@ -37,7 +37,7 @@ class UserFactory extends Factory
             'password' => bcrypt('password'),
             'email_verified_at' => null,
             'role' => $this->faker->randomElement(['Parent', 'Administrator']),
-            'status' => true,
+            'status' => $this->faker->randomDigit % 10 === 0 ? false : true,
         ];
     }
 

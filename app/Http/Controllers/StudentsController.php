@@ -23,6 +23,9 @@ class StudentsController extends Controller
             'blood_type' => 'required|string|in:A+,A-,B+,B-,AB+,AB-,O+,O-',
             'photo' => 'nullable|string',
             'birth_certificate' => 'nullable|string',
+            'grade' => 'required|string|in:Pre-Kinder,1st Grade,2nd Grade,3rd Grade,4th Grade,5th Grade,6th Grade',
+            'payment_order' => 'nullable|string',
+            'note' => 'nullable|string',
             'user_id' => 'required|exists:users,id',
             'status' => 'required|boolean',
         ];

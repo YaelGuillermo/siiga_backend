@@ -20,7 +20,10 @@ class Student extends Model
         'curp', 
         'blood_type', 
         'photo', 
-        'birth_certificate', 
+        'birth_certificate',
+        'grade', 
+        'payment_order',
+        'note',
         'user_id', 
         'status',
     ];

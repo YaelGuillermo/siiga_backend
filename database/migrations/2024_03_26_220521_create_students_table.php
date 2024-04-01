@@ -25,6 +25,9 @@ return new class extends Migration
             $table->enum('blood_type', ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-']);
             $table->longtext('photo')->nullable();
             $table->longtext('birth_certificate')->nullable();
+            $table->enum('grade', ['Pre-Kinder', '1st Grade', '2nd Grade', '3rd Grade', '4th Grade', '5th Grade', '6th Grade']);
+            $table->longtext('payment_order')->nullable();
+            $table->string('note')->nullable();
             $table->boolean('status')->default(true);
             $table->timestamps();
         });

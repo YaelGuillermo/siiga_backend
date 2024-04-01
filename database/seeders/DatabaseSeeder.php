@@ -28,9 +28,6 @@ class DatabaseSeeder extends Seeder
             // Create children for each parent
             $children = Student::factory()->count($numberOfChildren)->create(['user_id' => $parent->id]);
         }
-
-        // Create additional users (if needed)
-        User::factory()->count(10)->create();
     }
 }
 
