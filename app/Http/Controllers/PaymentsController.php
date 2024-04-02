@@ -36,6 +36,7 @@ class PaymentsController extends Controller
             'verified.required' => 'The verified field is required.',
             'verified.boolean' => 'The verified field must be a boolean value.',
         ];
+    }
         
         public function index()
         {
@@ -89,4 +90,3 @@ class PaymentsController extends Controller
             return response()->json(['message' => 'Payment deleted successfully.'], 204);
         }
     }
-}
