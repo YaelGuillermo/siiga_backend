@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use App\Models\User;
 use App\Models\Student;
+use App\Models\Payment;
 
 class DatabaseSeeder extends Seeder
 {
@@ -27,6 +28,18 @@ class DatabaseSeeder extends Seeder
 
             // Create children for each parent
             $children = Student::factory()->count($numberOfChildren)->create(['user_id' => $parent->id]);
+
+            // Create 6 payments for each student with a 1-month difference
+            foreach ($children as $child) {
+                $paymentDate = now()->subMonths(6)->startOfMonth(); // Start 6 months ago
+                for ($i = 0; $i < 6; $i++) {
+                    $paymentDate->addMonth(); // Add 1 month
+                    Payment::factory()->create([
+                        'student_id' => $child->id,
+                        'payment_date' => $paymentDate,
+                    ]);
+                }
+            }
         }
     }
 }

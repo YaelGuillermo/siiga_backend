@@ -7,31 +7,23 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class Student extends Model
+class Payment extends Model
 {
     use HasFactory, Notifiable;
 
     protected $fillable = [
         'id',
-        'name', 
-        'first_surname', 
-        'second_surname', 
-        'date_of_birth', 
-        'gender', 
-        'curp', 
-        'blood_type', 
-        'photo', 
-        'birth_certificate',
-        'grade', 
-        'payment_order',
+        'amount',
+        'payment_date',
+        'photo',
         'note',
-        'user_id', 
-        'status',
+        'student_id', 
+        'verified',
     ];
 
-    public function user()
+    public function student()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(Student::class);
     }
 
     protected $keyType = 'string';

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Ramsey\Uuid\Uuid;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -14,19 +15,16 @@ class UsersController extends Controller
     public function __construct()
     {
         $this->rules = [
-            'name' => 'required|string|regex:/^[a-zA-Z]{3,}(?: [a-zA-Z]+){0,2}$/',
-            'first_surname' => 'required|string|regex:/^[a-zA-Z]{3,}(?: [a-zA-Z]+){0,2}$/',
-            'second_surname' => 'required|string|regex:/^[a-zA-Z]{3,}(?: [a-zA-Z]+){0,2}$/',
+            'name' => 'required|string|regex:/^(?!.*\s{2})[a-zA-Z]{3,}(?: [a-zA-Z]{3,})*$/',
+            'first_surname' => 'required|string|regex:/^(?!.*\s{2})[a-zA-Z]{3,}(?: [a-zA-Z]{3,})*$/',
+            'second_surname' => 'required|string|regex:/^(?!.*\s{2})[a-zA-Z]{3,}(?: [a-zA-Z]{3,})*$/',
             'date_of_birth' => 'required|date|before_or_equal:2006-01-01',
             'gender' => 'required|in:Male,Female',
             'neighborhood' => 'required|string',
             'street' => 'required|string',
             'phone_number' => 'required|string|regex:/^[0-9 -]{10,13}$/',
             'photo' => 'nullable|string',
-            'email' => 'required|string|email|unique:users,email',
-            'password' => 'required|string',
-            'email_verified_at' => 'nullable|date',
-            'role' => 'required|in:Parent,Administrator',
+            'role' => 'required|string|in:Parent,Administrator',
             'status' => 'required|boolean',
         ];
 
@@ -53,14 +51,8 @@ class UsersController extends Controller
             'phone_number.string' => 'The phone number must be a string.',
             'phone_number.regex' => 'The phone number format is invalid. It must contain between 10 and 13 characters, consisting of numbers, spaces, or hyphens.',
             'photo.string' => 'The photo must be a string.',
-            'email.required' => 'The email field is required.',
-            'email.string' => 'The email must be a string.',
-            'email.email' => 'The email must be a valid email address.',
-            'email.unique' => 'The email has already been taken.',
-            'password.required' => 'The password field is required.',
-            'password.string' => 'The password must be a string.',
-            'email_verified_at.date' => 'The email verified at must be a valid date.',
             'role.required' => 'The role field is required.',
+            'role.string' => 'The role must be a string.',
             'role.in' => 'The role must be Parent or Administrator.',
             'status.required' => 'The status field is required.',
             'status.boolean' => 'The status must be Active or Inactive.',
@@ -81,8 +73,31 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
+        $user_id = Uuid::uuid4()->toString();
+        $request->merge(['id' => $user_id]);
+
+        $anotherRules = [
+            'email' => 'required|string|email|unique:users,email',             
+            'email_verified_at' => 'nullable|date',
+            'password' => 'required|string'
+        ];
+
+        $anotherErrorMessages = [
+            'email.required' => 'The email field is required.',
+            'email.string' => 'The email must be a string.',
+            'email.email' => 'The email must be a valid email address.',
+            'email.unique' => 'The email has already been taken.',
+            'password.required' => 'The password field is required.',
+            'password.string' => 'The password must be a string.',
+            'email_verified_at.date' => 'The email verified at must be a valid date.'
+        ];
+
         // Validar los datos de entrada
-        $validator = Validator::make($request->all(), $this->rules, $this->errorMessages);
+        $validator = Validator::make(
+            $request->all(),
+            array_merge($this->rules, $anotherRules),
+            array_merge($this->errorMessages, $anotherErrorMessages)
+        );
 
         // Si la validación falla, devolver un error
         if ($validator->fails()) {

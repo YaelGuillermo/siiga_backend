@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Student;
+use Ramsey\Uuid\Uuid;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -14,9 +15,9 @@ class StudentsController extends Controller
     public function __construct()
     {
         $this->rules = [
-            'name' => 'required|string|regex:/^[a-zA-Z]{3,}(?: [a-zA-Z]+){0,2}$/',
-            'first_surname' => 'required|string|regex:/^[a-zA-Z]{3,}(?: [a-zA-Z]+){0,2}$/',
-            'second_surname' => 'required|string|regex:/^[a-zA-Z]{3,}(?: [a-zA-Z]+){0,2}$/',
+            'name' => 'required|string|regex:/^(?!.*\s{2})[a-zA-Z]{3,}(?: [a-zA-Z]{3,})*$/',
+            'first_surname' => 'required|string|regex:/^(?!.*\s{2})[a-zA-Z]{3,}(?: [a-zA-Z]{3,})*$/',
+            'second_surname' => 'required|string|regex:/^(?!.*\s{2})[a-zA-Z]{3,}(?: [a-zA-Z]{3,})*$/',
             'date_of_birth' => 'required|date|before_or_equal:2020-01-01',
             'gender' => 'required|in:Male,Female',
             'curp' => 'required|string|max:18|regex:/^[A-Z]{4}\d{6}[HM][A-Z]{5}[A-Z\d][\dA]$/',

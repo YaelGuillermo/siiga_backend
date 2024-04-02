@@ -32,7 +32,7 @@ class UserFactory extends Factory
             'neighborhood' => $this->faker->streetName,
             'street' => $this->faker->streetAddress,
             'phone_number' => '664' . $this->faker->numerify('#######'),
-            'photo' => null,
+            'photo' => $this->faker->imageUrl(200, 200, 'people'),
             'email' => $this->faker->unique()->safeEmail,
             'password' => bcrypt('password'),
             'email_verified_at' => null,

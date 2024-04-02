@@ -31,7 +31,7 @@ class StudentFactory extends Factory
             'gender' => $this->faker->randomElement(['Male', 'Female']),
             'curp' => $this->faker->regexify('[A-Z]{4}\d{6}[HM][A-Z]{5}[A-Z\d][\dA]'),
             'blood_type' => $this->faker->randomElement(['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-']), 
-            'photo' => null,
+            'photo' => $this->faker->imageUrl(200, 200, 'people'),
             'birth_certificate' => null,
             'grade' => $this->faker->randomElement(['Pre-Kinder', '1st Grade', '2nd Grade', '3rd Grade', '4th Grade', '5th Grade', '6th Grade']),
             'payment_order' => null,
