@@ -40,17 +40,18 @@ class PaymentsController extends Controller
         
         public function index()
         {
-            $payments = Payment::all();
+            $payments = Payment::with('student.user')->get();
             
             return response()->json($payments);
         }
 
         public function show($id)
         {
-            $payment = Payment::findOrFail($id);
+            $payment = Payment::with('student.user')->findOrFail($id);
             
             return response()->json($payment);
         }
+
 
         public function store(Request $request)
         {

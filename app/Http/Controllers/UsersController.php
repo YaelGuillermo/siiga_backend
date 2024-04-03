@@ -69,6 +69,19 @@ class UsersController extends Controller
     }
 
     /**
+     * Display the specified resource.
+     */
+    public function show(string $id)
+    {
+        // Buscar un usuario por su ID
+        $user = User::with('students')->findOrFail($id);
+
+        
+        // Devolver la respuesta en formato JSON
+        return response()->json($user);
+    }
+
+    /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
@@ -109,18 +122,6 @@ class UsersController extends Controller
         
         // Devolver la respuesta en formato JSON con el usuario creado
         return response()->json(['message' => 'User created successfully.', 'user' => $user], 201);
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        // Buscar un usuario por su ID
-        $user = User::findOrFail($id);
-        
-        // Devolver la respuesta en formato JSON
-        return response()->json($user);
     }
 
     /**

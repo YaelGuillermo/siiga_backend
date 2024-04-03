@@ -34,6 +34,12 @@ class Student extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function payments()
+    {
+        return $this->hasMany(Payment::class);
+    }
+
+
     protected $keyType = 'string';
     public $incrementing = false;
 }

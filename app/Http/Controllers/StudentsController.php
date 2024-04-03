@@ -64,8 +64,8 @@ class StudentsController extends Controller
 
     public function index()
     {
-        // Obtener todos los estudiantes
-        $students = Student::all();
+        // Obtener todos los estudiantes con la relación 'user'
+        $students = Student::with('user')->get();
         
         // Devolver la respuesta en formato JSON
         return response()->json($students);
@@ -73,8 +73,10 @@ class StudentsController extends Controller
 
     public function show($id)
     {
-        // Buscar un estudiante por su ID
-        $student = Student::findOrFail($id);
+        // Buscar un estudiante por su ID con la relación 'user' y 'payments' y ordenar los pagos
+        $student = Student::with(['user', 'payments' => function ($query) {
+            $query->orderBy('payment_date', 'asc');
+        }])->findOrFail($id);
         
         // Devolver la respuesta en formato JSON
         return response()->json($student);
