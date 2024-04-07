@@ -24,7 +24,8 @@ return new class extends Migration
             $table->string('phone_number');
             $table->longtext('photo')->nullable();
             $table->string('email')->unique();
-            $table->string('password');
+            $table->string('google_id')->nullable()->unique(); // Google 
+            $table->string('password')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->enum('role', ['Parent', 'Administrator']);
             $table->boolean('status')->default(true);
