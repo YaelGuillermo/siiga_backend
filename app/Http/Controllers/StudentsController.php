@@ -19,7 +19,7 @@ class StudentsController extends Controller
             'first_surname' => 'required|string|regex:/^(?!.*\s{2})[a-zA-Z]{3,}(?: [a-zA-Z]{3,})*$/',
             'second_surname' => 'required|string|regex:/^(?!.*\s{2})[a-zA-Z]{3,}(?: [a-zA-Z]{3,})*$/',
             'date_of_birth' => 'required|date|before_or_equal:2020-01-01',
-            'gender' => 'required|string|in:M,F',
+            'gender' => 'required|string|in:M,F,U',
             'curp' => 'required|string|max:18|regex:/^[A-Z]{4}\d{6}[HM][A-Z]{5}[A-Z\d][\dA]$/',
             'blood_type' => 'required|string|in:A+,A-,B+,B-,AB+,AB-,O+,O-',
             'photo' => 'nullable|string',

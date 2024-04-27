@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('first_surname');
             $table->string('second_surname');
             $table->date('date_of_birth');
-            $table->enum('gender', ['M', 'F']);
+            $table->enum('gender', ['M', 'F', 'U']);
             $table->string('curp');
             $table->enum('blood_type', ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-']);
             $table->longtext('photo')->nullable();

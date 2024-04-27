@@ -28,7 +28,7 @@ class StudentFactory extends Factory
             'first_surname' => $this->faker->lastName,
             'second_surname' => $this->faker->lastName,
             'date_of_birth' => $this->faker->dateTimeBetween('2009-01-01', '2020-01-01')->format('Y-m-d'),
-            'gender' => $this->faker->randomElement(['M', 'F']),
+            'gender' => $this->faker->randomElement(['M', 'F', 'U']),
             'curp' => $this->faker->regexify('[A-Z]{4}\d{6}[HM][A-Z]{5}[A-Z\d][\dA]'),
             'blood_type' => $this->faker->randomElement(['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-']), 
             'photo' => $this->faker->imageUrl(200, 200, 'people'),

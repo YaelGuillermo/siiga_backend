@@ -28,7 +28,7 @@ class UserFactory extends Factory
             'first_surname' => $this->faker->lastName,
             'second_surname' => $this->faker->lastName,
             'date_of_birth' => $this->faker->date('Y-m-d', '2006-01-01'),
-            'gender' => $this->faker->randomElement(['M', 'F']),
+            'gender' => $this->faker->randomElement(['M', 'F', 'U']),
             'neighborhood' => $this->faker->streetName,
             'street' => $this->faker->streetAddress,
             'phone_number' => '664' . $this->faker->numerify('#######'),
