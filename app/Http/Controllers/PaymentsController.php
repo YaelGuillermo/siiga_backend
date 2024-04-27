@@ -16,7 +16,7 @@ class PaymentsController extends Controller
     {
         $this->rules = [
             'amount' => 'required|regex:/^\d{1,6}(\.\d{1,2})?$/',
-            'payment_date' => 'required|string',
+            'date' => 'required|string',
             'photo' => 'required|string',
             'note' => 'nullable|string',
             'student_id' => 'required|exists:students,id',
@@ -26,8 +26,8 @@ class PaymentsController extends Controller
         $this->errorMessages = [
             'amount.required' => 'The amount field is required.',
             'amount.regex' => 'The amount format is invalid. It must be a decimal number with up to 6 digits before the decimal point and up to 2 digits after the decimal point.',
-            'payment_date.required' => 'The payment date field is required.',
-            'payment_date.string' => 'The payment date must be a string.',
+            'date.required' => 'The payment date field is required.',
+            'date.string' => 'The payment date must be a string.',
             'photo.required' => 'The photo field is required.',
             'photo.string' => 'The photo must be a string.',
             'note.string' => 'The note must be a string.',

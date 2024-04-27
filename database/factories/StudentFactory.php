@@ -28,18 +28,17 @@ class StudentFactory extends Factory
             'first_surname' => $this->faker->lastName,
             'second_surname' => $this->faker->lastName,
             'date_of_birth' => $this->faker->dateTimeBetween('2009-01-01', '2020-01-01')->format('Y-m-d'),
-            'gender' => $this->faker->randomElement(['Male', 'Female']),
+            'gender' => $this->faker->randomElement(['M', 'F']),
             'curp' => $this->faker->regexify('[A-Z]{4}\d{6}[HM][A-Z]{5}[A-Z\d][\dA]'),
             'blood_type' => $this->faker->randomElement(['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-']), 
             'photo' => $this->faker->imageUrl(200, 200, 'people'),
             'birth_certificate' => null,
             'grade' => $this->faker->randomElement(['Pre-Kinder', '1st Grade', '2nd Grade', '3rd Grade', '4th Grade', '5th Grade', '6th Grade']),
-            'payment_order' => null,
             'note' => null,
             'user_id' => function () {
                 return \App\Models\User::factory()->create()->id;
             },
-            'status' => $this->faker->randomDigit % 7 === 0 ? false : true,
+            'status' => $this->faker->randomElement(['Active', 'Inactive', 'Under review']),
         ];
     }
 }

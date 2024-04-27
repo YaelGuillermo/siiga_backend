@@ -28,7 +28,7 @@ class UserFactory extends Factory
             'first_surname' => $this->faker->lastName,
             'second_surname' => $this->faker->lastName,
             'date_of_birth' => $this->faker->date('Y-m-d', '2006-01-01'),
-            'gender' => $this->faker->randomElement(['Male', 'Female']),
+            'gender' => $this->faker->randomElement(['M', 'F']),
             'neighborhood' => $this->faker->streetName,
             'street' => $this->faker->streetAddress,
             'phone_number' => '664' . $this->faker->numerify('#######'),
@@ -36,7 +36,7 @@ class UserFactory extends Factory
             'email' => $this->faker->unique()->safeEmail,
             'password' => bcrypt('password'),
             'email_verified_at' => null,
-            'role' => $this->faker->randomElement(['Parent', 'Administrator']),
+            'role' => $this->faker->randomElement(['A', 'P']),
             'status' => $this->faker->randomDigit % 10 === 0 ? false : true,
         ];
     }

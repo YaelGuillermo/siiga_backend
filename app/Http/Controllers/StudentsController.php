@@ -19,16 +19,15 @@ class StudentsController extends Controller
             'first_surname' => 'required|string|regex:/^(?!.*\s{2})[a-zA-Z]{3,}(?: [a-zA-Z]{3,})*$/',
             'second_surname' => 'required|string|regex:/^(?!.*\s{2})[a-zA-Z]{3,}(?: [a-zA-Z]{3,})*$/',
             'date_of_birth' => 'required|date|before_or_equal:2020-01-01',
-            'gender' => 'required|in:Male,Female',
+            'gender' => 'required|string|in:M,F',
             'curp' => 'required|string|max:18|regex:/^[A-Z]{4}\d{6}[HM][A-Z]{5}[A-Z\d][\dA]$/',
             'blood_type' => 'required|string|in:A+,A-,B+,B-,AB+,AB-,O+,O-',
             'photo' => 'nullable|string',
             'birth_certificate' => 'nullable|string',
             'grade' => 'required|string|in:Pre-Kinder,1st Grade,2nd Grade,3rd Grade,4th Grade,5th Grade,6th Grade',
-            'payment_order' => 'nullable|string',
             'note' => 'nullable|string',
             'user_id' => 'required|exists:users,id',
-            'status' => 'required|boolean',
+            'status' => 'required|string|in:Active,Inactive,Under review',
         ];
 
         $this->errorMessages = [
@@ -58,7 +57,7 @@ class StudentsController extends Controller
             'user_id.required' => 'The user ID field is required.',
             'user_id.exists' => 'The selected user ID is invalid.',
             'status.required' => 'The status field is required.',
-            'status.boolean' => 'The status must be true or false.',
+            'status.in' => 'The status must be active, inactive or under review.',
         ];
     }
 

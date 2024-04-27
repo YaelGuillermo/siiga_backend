@@ -28,7 +28,7 @@ class PaymentFactory extends Factory
         return [
             'id' => Str::uuid(),
             'amount' => 4000.00,
-            'payment_date' => $this->faker->dateTimeBetween('2024-05-15', '2024-12-15')->format('Y-m-d'),
+            'date' => $this->faker->dateTimeBetween('2024-05-15', '2024-12-15')->format('Y-m-d'),
             'photo' => $this->faker->imageUrl(640, 480, 'invoice'),
             'note' => null,
             'student_id' => function () {

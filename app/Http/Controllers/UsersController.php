@@ -19,12 +19,12 @@ class UsersController extends Controller
             'first_surname' => 'required|string|regex:/^(?!.*\s{2})[a-zA-Z]{3,}(?: [a-zA-Z]{3,})*$/',
             'second_surname' => 'required|string|regex:/^(?!.*\s{2})[a-zA-Z]{3,}(?: [a-zA-Z]{3,})*$/',
             'date_of_birth' => 'required|date|before_or_equal:2006-01-01',
-            'gender' => 'required|in:Male,Female',
+            'gender' => 'required|string|in:M,F',
             'neighborhood' => 'required|string',
             'street' => 'required|string',
             'phone_number' => 'required|string|regex:/^[0-9 -]{10,13}$/',
             'photo' => 'nullable|string',
-            'role' => 'required|string|in:Parent,Administrator',
+            'role' => 'required|string|in:A,P',
             'status' => 'required|boolean',
         ];
 

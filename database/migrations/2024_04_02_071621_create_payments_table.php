@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreign('student_id')->references('id')->on('students')->onDelete('cascade');
             
             $table->decimal('amount', 8, 2);
-            $table->date('payment_date');
+            $table->date('date');
             $table->longtext('photo');
             $table->boolean('verified')->default(true); 
             $table->string('note')->nullable(); 

@@ -18,16 +18,16 @@ return new class extends Migration
             $table->string('first_surname');
             $table->string('second_surname');
             $table->date('date_of_birth');
-            $table->enum('gender', ['Male', 'Female']);
+            $table->enum('gender', ['M', 'F']);
             $table->string('neighborhood');
             $table->string('street');
             $table->string('phone_number');
             $table->longtext('photo')->nullable();
             $table->string('email')->unique();
-            $table->string('google_id')->nullable()->unique(); // Google 
-            $table->string('password')->nullable();
+            //$table->string('google_id')->nullable()->unique(); // Google 
+            $table->string('password');
             $table->timestamp('email_verified_at')->nullable();
-            $table->enum('role', ['Parent', 'Administrator']);
+            $table->enum('role', ['A', 'P']);
             $table->boolean('status')->default(true);
             $table->rememberToken();
             $table->timestamps();

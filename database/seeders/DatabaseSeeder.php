@@ -17,10 +17,10 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         // Create 50 parents
-        $parents = User::factory()->count(50)->create(['role' => 'Parent']);
+        $parents = User::factory()->count(50)->create(['role' => 'P']);
 
         // Create 3 administrators
-        $admins = User::factory()->count(3)->create(['role' => 'Administrator']);
+        $admins = User::factory()->count(3)->create(['role' => 'A']);
 
         foreach ($parents as $parent) {
             // Randomly determine the number of children for each parent (1 to 3)
@@ -36,7 +36,7 @@ class DatabaseSeeder extends Seeder
                     $paymentDate->addMonth(); // Add 1 month
                     Payment::factory()->create([
                         'student_id' => $child->id,
-                        'payment_date' => $paymentDate,
+                        'date' => $paymentDate,
                     ]);
                 }
             }
