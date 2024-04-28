@@ -55,6 +55,9 @@ class PaymentsController extends Controller
 
         public function store(Request $request)
         {
+            $payment_id = Uuid::uuid4()->toString();
+            $request->merge(['id' => $payment_id]);
+
             $validator = Validator::make($request->all(), $this->rules, $this->errorMessages);   
 
             if ($validator->fails()) {

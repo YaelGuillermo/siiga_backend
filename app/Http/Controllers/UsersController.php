@@ -6,6 +6,7 @@ use App\Models\User;
 use Ramsey\Uuid\Uuid;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Hash;
 
 class UsersController extends Controller
 {
@@ -117,8 +118,12 @@ class UsersController extends Controller
             return response()->json(['errors' => $validator->errors()], 400);
         }
 
+        // Hashear la contraseña
+        $hashedPassword = Hash::make($request->input('password'));
+
         // Crear un nuevo usuario con los datos proporcionados
-        $user = User::create($request->all());
+        //$user = User::create($request->all());
+        $user = User::create(array_merge($request->all(), ['password' => $hashedPassword]));
         
         // Devolver la respuesta en formato JSON con el usuario creado
         return response()->json(['message' => 'User created successfully.', 'user' => $user], 201);

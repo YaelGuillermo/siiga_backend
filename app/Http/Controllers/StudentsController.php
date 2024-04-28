@@ -83,6 +83,9 @@ class StudentsController extends Controller
 
     public function store(Request $request)
     {
+        $student_id = Uuid::uuid4()->toString(); // *
+        $request->merge(['id' => $student_id]); // *
+
         $validator = Validator::make($request->all(), $this->rules, $this->errorMessages);   
 
         // Si la validación falla, devolver un error
