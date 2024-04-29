@@ -74,7 +74,7 @@ class StudentsController extends Controller
     {
         // Buscar un estudiante por su ID con la relación 'user' y 'payments' y ordenar los pagos
         $student = Student::with(['user', 'payments' => function ($query) {
-            $query->orderBy('payment_date', 'asc');
+            $query->orderBy('date', 'asc');
         }])->findOrFail($id);
         
         // Devolver la respuesta en formato JSON
